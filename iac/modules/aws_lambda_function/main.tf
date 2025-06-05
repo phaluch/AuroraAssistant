@@ -8,24 +8,14 @@ resource "aws_lambda_function" "this" {
   runtime      = var.runtime
   timeout      = var.timeout
   memory_size  = var.memory_size
-  
-  # For imported functions, use dummy zip to satisfy Terraform requirements
-  # The actual code will remain unchanged until you deploy new code
-  filename         = var.filename != null ? var.filename : "${path.module}/dummy.zip"
-  source_code_hash = var.filename != null ? var.source_code_hash : filebase64sha256("${path.module}/dummy.zip")
-  
-  # Ignore changes to source code during import process
-  lifecycle {
-    ignore_changes = [
-      filename,
-      source_code_hash
-    ]
-  }
-  
+ 
+  filename         = var.filename
+  source_code_hash = var.source_code_hash
+ 
   environment {
     variables = var.environment_variables
   }
-  
+ 
   tags = var.tags
 }
 

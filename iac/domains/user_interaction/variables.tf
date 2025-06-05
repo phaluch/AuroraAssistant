@@ -15,3 +15,13 @@ variable "environment" {
     error_message = "Environment must be one of: dev, stg, prd, qa."
   }
 }
+
+variable "bedrock_agent_id" {
+  description = "Bedrock Agent ID"
+  type        = string
+}
+
+variable "bedrock_agent_alias_id" {
+  description = "Bedrock Agent Alias ID"  
+  type        = string
+}

@@ -8,19 +8,34 @@ locals {
   }
 }
 
+# Build Lambda deployment package
+data "archive_file" "user_request_handler" {
+  type        = "zip"
+  source_dir  = "${path.root}/../../src/domains/user_interaction/api_handlers/user_request_handler"
+  output_path = "${path.module}/user_request_handler.zip"
+}
+
 # Lambda Function for handling user requests
 module "user_request_handler" {
   source = "../../modules/aws_lambda_function"
   
-  # For imported resources, keep the original names temporarily
-  # We'll rename them in a separate step to avoid breaking dependencies
   function_name       = "aurora-dev-ui-lambda-user-request-handler"
   execution_role_name = "aurora-dev-ui-iam-user-request-handler-exec-role"
-  handler            = "lambda_function.lambda_handler"
+  handler            = "app.lambda_handler"
   runtime            = "python3.12"
   timeout            = 60
   memory_size        = 128
   
+  # Deployment package
+  filename         = data.archive_file.user_request_handler.output_path
+  source_code_hash = data.archive_file.user_request_handler.output_base64sha256
+
+  environment_variables = {
+    BEDROCK_AGENT_ID       = var.bedrock_agent_id
+    BEDROCK_AGENT_ALIAS_ID = var.bedrock_agent_alias_id
+    AWS_REGION            = var.aws_region
+  }
+
   tags = merge(local.common_tags, {
     Name = "aurora-dev-ui-lambda-user-request-handler"
   })
