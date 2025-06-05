@@ -20,9 +20,7 @@ resource "aws_iam_role" "todoist_lambda_role" {
 
   tags = {
     Name        = "aurora-${var.environment}-ait-iam-todoist-tool-lambda-exec-role"
-    environment = var.environment
     domain      = "ai-tooling"
-    managed-by  = "terraform"
   }
 }
 
