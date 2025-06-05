@@ -1,0 +1,193 @@
+openapi: 3.0.0
+info:
+  title: Todoist Task Management API
+  version: 3.0.0
+paths:
+  /tasks/manage:
+    post:
+      description: Manage Todoist tasks - create, update, complete, retrieve, or list tasks
+      operationId: manageTasks
+      parameters:
+        - name: operation
+          in: query
+          required: true
+          description: The operation to perform (create, update, complete, get, list)
+          schema:
+            type: string
+            enum: [create, update, complete, get, list]
+        - name: task_id
+          in: query
+          required: false
+          description: The unique identifier of the task (required for update, complete, and get operations)
+          schema:
+            type: string
+        - name: content
+          in: query
+          required: false
+          description: Task text content - required for create, optional for update (e.g., "Buy groceries", "Call John")
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 500
+        - name: description
+          in: query
+          required: false
+          description: Additional details or notes about the task
+          schema:
+            type: string
+            maxLength: 16383
+        - name: project_id
+          in: query
+          required: false
+          description: Project identifier - for create or list operations
+          schema:
+            type: string
+        - name: priority
+          in: query
+          required: false
+          description: Task priority level (1=normal, 2=high, 3=urgent, 4=very urgent)
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 4
+        - name: due_string
+          in: query
+          required: false
+          description: Natural language due date (e.g., "tomorrow", "next Monday", "in 3 days")
+          schema:
+            type: string
+            maxLength: 150
+        - name: labels
+          in: query
+          required: false
+          description: Comma-separated list of label names (e.g., "work,urgent,email")
+          schema:
+            type: string
+        - name: label
+          in: query
+          required: false
+          description: Single label name to filter by when listing tasks
+          schema:
+            type: string
+        - name: filter
+          in: query
+          required: false
+          description: Todoist filter query for list operation (e.g., "today", "overdue", "p1 & @work")
+          schema:
+            type: string
+            maxLength: 1024
+      responses:
+        200:
+          description: Operation completed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    description: Operation-specific response data
+      x-requireConfirmation: DISABLED
+
+  /projects/manage:
+    post:
+      description: Manage Todoist projects - create, update, retrieve, list, or delete projects
+      operationId: manageProjects
+      parameters:
+        - name: operation
+          in: query
+          required: true
+          description: The operation to perform (create, update, get, list, delete)
+          schema:
+            type: string
+            enum: [create, update, get, list, delete]
+        - name: project_id
+          in: query
+          required: false
+          description: The unique identifier of the project (required for update, get, and delete operations)
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          description: Project name - required for create, optional for update (e.g., "Work", "Personal")
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 120
+        - name: description
+          in: query
+          required: false
+          description: Additional details about the project
+          schema:
+            type: string
+            maxLength: 16383
+        - name: parent_id
+          in: query
+          required: false
+          description: Parent project ID for creating nested projects
+          schema:
+            type: string
+      responses:
+        200:
+          description: Operation completed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    description: Operation-specific response data
+      x-requireConfirmation: DISABLED
+
+  /labels/manage:
+    post:
+      description: Manage Todoist labels - create, update, retrieve, list, or delete labels
+      operationId: manageLabels
+      parameters:
+        - name: operation
+          in: query
+          required: true
+          description: The operation to perform (create, update, get, list, delete)
+          schema:
+            type: string
+            enum: [create, update, get, list, delete]
+        - name: label_id
+          in: query
+          required: false
+          description: The unique identifier of the label (required for update, get, and delete operations)
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          description: Label name - required for create, optional for update (e.g., "urgent", "work")
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 60
+      responses:
+        200:
+          description: Operation completed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    description: Operation-specific response data
+      x-requireConfirmation: DISABLED
