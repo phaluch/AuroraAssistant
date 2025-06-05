@@ -80,9 +80,9 @@ AuroraAssistant/
 
 All AWS resources should follow this pattern:
 
-**`<app_name>-<environment>-<domain_shortcode>-<aws_service_shortcode>-<component_description>-<optional_suffix>`**
+**`<project_name>-<environment>-<domain_shortcode>-<aws_service_shortcode>-<component_description>-<optional_suffix>`**
 
-* **`<app_name>`**: aurora
+* **`<project_name>`**: aurora
 * **`<environment>`**: Environment identifier.
     * `dev`: Development
     * `stg`: Staging

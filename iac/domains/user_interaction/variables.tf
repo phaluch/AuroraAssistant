@@ -1,7 +1,7 @@
 # User Interaction Domain Variables
 # iac/domains/user_interaction/variables.tf
 
-variable "app_name" {
+variable "project_name" {
   description = "Application name"
   type        = string
 }

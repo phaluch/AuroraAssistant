@@ -1,12 +1,17 @@
+
 variable "environment" {
   description = "Environment name (dev, stg, prd)"
+  type        = string
+}
+
+variable "project_name" {
+  description = "Application name"
   type        = string
 }
 
 variable "aws_region" {
   description = "AWS region"
   type        = string
-  default     = "us-east-1"
 }
 
 variable "aws_account_id" {
@@ -27,4 +32,10 @@ variable "agent_instruction" {
 variable "todoist_api_schema" {
   description = "OpenAPI schema for Todoist action group"
   type        = string
+}
+
+variable "domain" {
+  description = "Domain name for the agent orchestration"
+  type        = string
+  default     = "ao"
 }
