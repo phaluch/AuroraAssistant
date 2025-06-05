@@ -14,19 +14,15 @@ module "user_request_handler" {
   
   # For imported resources, keep the original names temporarily
   # We'll rename them in a separate step to avoid breaking dependencies
-  function_name       = "aurora-api-post-invoker"  # Keep original name for now
-  execution_role_name = "aurora-api-post-invoker-role"  # Keep original name for now
+  function_name       = "aurora-dev-ui-lambda-user-request-handler"
+  execution_role_name = "aurora-dev-ui-iam-user-request-handler-exec-role"
   handler            = "lambda_function.lambda_handler"
   runtime            = "python3.12"
   timeout            = 60
   memory_size        = 128
   
-  # Note: You'll need to package your Lambda code
-  # filename         = "../../src/domains/user_interaction/api_handlers/user_request_handler/deployment.zip"
-  # source_code_hash = filebase64sha256("../../src/domains/user_interaction/api_handlers/user_request_handler/deployment.zip")
-  
   tags = merge(local.common_tags, {
-    Name = "aurora-api-post-invoker"  # Keep original name in tags for now
+    Name = "aurora-dev-ui-lambda-user-request-handler"
   })
 }
 
