@@ -11,7 +11,6 @@ variable "lambda_source_file" {
 variable "todoist_secret_name" {
   description = "Name of Secrets Manager secret containing Todoist API token"
   type        = string
-  default     = "todoist-api-token"
 }
 
 variable "lambda_layers" {

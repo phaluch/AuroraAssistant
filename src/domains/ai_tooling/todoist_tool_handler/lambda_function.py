@@ -9,7 +9,7 @@ from todoist_api_python.api import TodoistAPI
 secrets_client = boto3.client("secretsmanager")
 
 # Configuration
-SECRET_NAME = os.environ.get("TODOIST_SECRET_NAME", "todoist-api-token")
+SECRET_NAME = os.environ.get("TODOIST_SECRET_NAME")
 
 
 class TodoistJSONEncoder(json.JSONEncoder):
