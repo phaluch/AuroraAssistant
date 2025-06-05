@@ -1,1 +1,1 @@
-# AuroraAssistant
+For now, a personal project to help me organize my life a bit better.
