@@ -24,3 +24,13 @@ variable "aws_profile" {
   type        = string
   default     = "aurora-cli"
 }
+
+variable "bedrock_agent_id" {
+  description = "Bedrock Agent ID"
+  type        = string
+}
+
+variable "bedrock_agent_alias_id" {
+  description = "Bedrock Agent Alias ID"
+  type        = string
+}

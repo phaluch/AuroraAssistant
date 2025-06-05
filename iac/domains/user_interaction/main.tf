@@ -11,7 +11,7 @@ locals {
 # Build Lambda deployment package
 data "archive_file" "user_request_handler" {
   type        = "zip"
-  source_dir  = "${path.root}/../../src/domains/user_interaction/api_handlers/user_request_handler"
+  source_dir  = "${path.root}/../../../src/domains/user_interaction/api_handlers/user_request_handler"
   output_path = "${path.module}/user_request_handler.zip"
 }
 
@@ -33,7 +33,6 @@ module "user_request_handler" {
   environment_variables = {
     BEDROCK_AGENT_ID       = var.bedrock_agent_id
     BEDROCK_AGENT_ALIAS_ID = var.bedrock_agent_alias_id
-    AWS_REGION            = var.aws_region
   }
 
   tags = merge(local.common_tags, {

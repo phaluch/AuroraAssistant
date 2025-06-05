@@ -33,5 +33,4 @@ module "user_interaction" {
   environment = var.environment
   bedrock_agent_id       = var.bedrock_agent_id
   bedrock_agent_alias_id = var.bedrock_agent_alias_id
-  aws_region            = var.aws_region
 }

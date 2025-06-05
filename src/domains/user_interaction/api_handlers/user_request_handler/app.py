@@ -18,10 +18,9 @@ logger.setLevel(logging.INFO)
 # Environment variables
 AGENT_ID = os.environ.get('BEDROCK_AGENT_ID')
 AGENT_ALIAS_ID = os.environ.get('BEDROCK_AGENT_ALIAS_ID')
-AWS_REGION = os.environ.get('AWS_REGION')
 
 # Initialize Bedrock client (outside handler for connection reuse)
-bedrock_agent = boto3.client('bedrock-agent-runtime', region_name=AWS_REGION)
+bedrock_agent = boto3.client('bedrock-agent-runtime')
 
 
 class BedrockAgentError(Exception):
