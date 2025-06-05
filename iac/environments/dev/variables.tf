@@ -4,25 +4,21 @@
 variable "app_name" {
   description = "Application name"
   type        = string
-  default     = "aurora"
 }
 
 variable "environment" {
   description = "Environment name"
   type        = string
-  default     = "dev"
 }
 
 variable "aws_region" {
   description = "AWS region"
   type        = string
-  default     = "us-east-1"
 }
 
 variable "aws_profile" {
   description = "AWS CLI profile"
   type        = string
-  default     = "aurora-cli"
 }
 
 variable "bedrock_agent_id" {
@@ -33,4 +29,24 @@ variable "bedrock_agent_id" {
 variable "bedrock_agent_alias_id" {
   description = "Bedrock Agent Alias ID"
   type        = string
+}
+
+variable "aws_account_id" {
+  description = "AWS account ID"
+  type        = string
+}
+
+variable "lambda_source_file" {
+  description = "Path to Lambda Python script"
+  type        = string
+}
+
+variable "todoist_secret_name" {
+  description = "Name of Secrets Manager secret containing Todoist API token"
+  type        = string
+}
+
+variable "lambda_layers" {
+  description = "List of Lambda layer ARNs"
+  type        = list(string)
 }

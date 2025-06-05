@@ -25,6 +25,31 @@ provider "aws" {
   }
 }
 
+# AI Tooling Domain
+module "ai_tooling" {
+  source = "../../domains/ai_tooling"
+
+  environment         = var.environment
+  lambda_source_file  = var.lambda_source_file
+  todoist_secret_name = var.todoist_secret_name
+  lambda_layers       = var.lambda_layers
+  bedrock_agent_arn   = "arn:aws:bedrock:${var.aws_region}:${var.aws_account_id}:agent/*"
+}
+
+# Agent Orchestration Domain
+module "agent_orchestration" {
+  source = "../../domains/agent_orchestration"
+  
+  environment     = var.environment
+  aws_region      = var.aws_region
+  aws_account_id  = var.aws_account_id
+  
+  todoist_lambda_arn = module.ai_tooling.lambda_function_arn
+  
+  agent_instruction           = file("${path.module}/../../domains/agent_orchestration/agent_instruction.txt")
+  todoist_api_schema         = file("${path.module}/../../domains/agent_orchestration/todoist_api_schema.yaml")
+}
+
 # User Interaction Domain
 module "user_interaction" {
   source = "../../domains/user_interaction"
