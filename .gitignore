@@ -329,3 +329,10 @@ docs/_build/
 
 # Linux
 *~
+
+# ===========================================
+# ANDROID / KOTLIN
+# ===========================================
+
+# Folder that holds AWS CLI outputs
+cli_outputs/
