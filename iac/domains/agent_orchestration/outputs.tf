@@ -3,6 +3,11 @@ output "agent_id" {
   value       = aws_bedrockagent_agent.todoist_assistant.agent_id
 }
 
+output "agent_version" {
+  description = "Bedrock agent version"
+  value       = aws_bedrockagent_agent.todoist_assistant.agent_version
+}
+
 output "agent_arn" {
   description = "Bedrock agent ARN"
   value       = aws_bedrockagent_agent.todoist_assistant.agent_arn

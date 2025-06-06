@@ -30,6 +30,7 @@ module "ai_tooling" {
   source = "../../domains/ai_tooling"
 
   environment         = var.environment
+  repo_root           = var.repo_root
   lambda_source_file  = var.lambda_source_file
   todoist_secret_name = var.todoist_secret_name
   lambda_layers       = var.lambda_layers

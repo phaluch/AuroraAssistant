@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: Todoist Discovery API
+  version: 3.0.0
+paths:
+  /tasks:
+    get:
+      description: List Todoist tasks with optional filtering
+      operationId: listTasks
+      parameters:
+        - name: project_id
+          in: query
+          required: false
+          description: Project identifier to filter tasks
+          schema:
+            type: string
+        - name: label
+          in: query
+          required: false
+          description: Single label name to filter by
+          schema:
+            type: string
+        - name: filter
+          in: query
+          required: false
+          description: Todoist filter query (e.g., "today", "overdue", "p1 & @work")
+          schema:
+            type: string
+            maxLength: 1024
+      responses:
+        200:
+          description: Tasks retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+  /projects:
+    get:
+      description: List all Todoist projects
+      operationId: listProjects
+      responses:
+        200:
+          description: Projects retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+  /labels:
+    get:
+      description: List all Todoist labels
+      operationId: listLabels
+      responses:
+        200:
+          description: Labels retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+  /snapshot:
+    get:
+      description: Retrieve a snapshot of all Todoist projects, including their tasks and associated labels
+      operationId: getSnapshot
+      responses:
+        200:
+          description: Snapshot retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      projects:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            project_id:
+                              type: string
+                            project_name:
+                              type: string
+                            tasks:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  task_id:
+                                    type: string
+                                  task_name:
+                                    type: string
+                                  labels:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        label_id:
+                                          type: string
+                                        label_name:
+                                          type: string
+      x-requireConfirmation: DISABLED

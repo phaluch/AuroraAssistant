@@ -83,3 +83,71 @@ resource "aws_lambda_permission" "allow_bedrock" {
   principal     = "bedrock.amazonaws.com"
   source_arn    = var.bedrock_agent_arn
 }
+
+# Bedrock Agent Action Group
+resource "aws_bedrockagent_agent_action_group" "todoist_discovery_tools" {
+  action_group_name = "todoist_discovery_tools"
+  agent_id      = module.agent_orchestration.aws_bedrockagent_agent.todoist_assistant.agent_id
+  agent_version = "DRAFT"
+  description      = "Tools to interact with Todoist API"
+
+  action_group_executor {
+    lambda = var.todoist_lambda_arn
+  }
+
+  api_schema {
+    payload = var.todoist_api_schema
+  }
+
+}
+
+# Bedrock Agent Action Group
+resource "aws_bedrockagent_agent_action_group" "todoist_task_tools" {
+  action_group_name = "todoist_task_tools"
+  agent_id      = module.agent_orchestration.aws_bedrockagent_agent.todoist_assistant.agent_id
+  agent_version = "DRAFT"
+  description      = "Tools to interact with Todoist API"
+
+  action_group_executor {
+    lambda = var.todoist_lambda_arn
+  }
+
+  api_schema {
+    payload = var.todoist_api_schema
+  }
+
+}
+
+# Bedrock Agent Action Group
+resource "aws_bedrockagent_agent_action_group" "todoist_project_tools" {
+  action_group_name = "todoist_project_tools"
+  agent_id      = module.agent_orchestration.aws_bedrockagent_agent.todoist_assistant.agent_id
+  agent_version = "DRAFT"
+  description      = "Tools to interact with Todoist API"
+
+  action_group_executor {
+    lambda = var.todoist_lambda_arn
+  }
+
+  api_schema {
+    payload = var.todoist_api_schema
+  }
+
+}
+
+# Bedrock Agent Action Group
+resource "aws_bedrockagent_agent_action_group" "todoist_label_tools" {
+  action_group_name = "todoist_label_tools"
+  agent_id      = module.agent_orchestration.aws_bedrockagent_agent.todoist_assistant.agent_id
+  agent_version = "DRAFT"
+  description      = "Tools to interact with Todoist API"
+
+  action_group_executor {
+    lambda = var.todoist_lambda_arn
+  }
+
+  api_schema {
+    payload = var.todoist_api_schema
+  }
+
+}

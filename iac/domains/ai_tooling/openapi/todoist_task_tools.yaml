@@ -1,0 +1,183 @@
+openapi: 3.0.0
+info:
+  title: Todoist Task Operations API
+  version: 3.0.0
+paths:
+  /tasks:
+    post:
+      description: Create a new Todoist task
+      operationId: createTask
+      parameters:
+        - name: content
+          in: query
+          required: true
+          description: Task text content (e.g., "Buy groceries", "Call John")
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 500
+        - name: description
+          in: query
+          required: false
+          description: Additional details or notes about the task
+          schema:
+            type: string
+            maxLength: 16383
+        - name: project_id
+          in: query
+          required: false
+          description: Project identifier
+          schema:
+            type: string
+        - name: priority
+          in: query
+          required: false
+          description: Task priority level (1=normal, 2=high, 3=urgent, 4=very urgent)
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 4
+        - name: due_string
+          in: query
+          required: false
+          description: Natural language due date (e.g., "tomorrow", "next Monday", "in 3 days")
+          schema:
+            type: string
+            maxLength: 150
+        - name: labels
+          in: query
+          required: false
+          description: Comma-separated list of label names (e.g., "work,urgent,email")
+          schema:
+            type: string
+      responses:
+        200:
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+  /tasks/{task_id}:
+    get:
+      description: Retrieve a specific Todoist task
+      operationId: getTask
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: The unique identifier of the task
+          schema:
+            type: string
+      responses:
+        200:
+          description: Task retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+    put:
+      description: Update a Todoist task
+      operationId: updateTask
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: The unique identifier of the task
+          schema:
+            type: string
+        - name: content
+          in: query
+          required: false
+          description: Task text content
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 500
+        - name: description
+          in: query
+          required: false
+          description: Additional details or notes about the task
+          schema:
+            type: string
+            maxLength: 16383
+        - name: priority
+          in: query
+          required: false
+          description: Task priority level (1=normal, 2=high, 3=urgent, 4=very urgent)
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 4
+        - name: due_string
+          in: query
+          required: false
+          description: Natural language due date (e.g., "tomorrow", "next Monday", "in 3 days")
+          schema:
+            type: string
+            maxLength: 150
+        - name: labels
+          in: query
+          required: false
+          description: Comma-separated list of label names (e.g., "work,urgent,email")
+          schema:
+            type: string
+      responses:
+        200:
+          description: Task updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+  /tasks/{task_id}/complete:
+    post:
+      description: Mark a Todoist task as complete
+      operationId: completeTask
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: The unique identifier of the task
+          schema:
+            type: string
+      responses:
+        200:
+          description: Task completed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED

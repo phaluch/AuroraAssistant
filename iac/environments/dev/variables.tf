@@ -40,3 +40,8 @@ variable "lambda_layers" {
   description = "List of Lambda layer ARNs"
   type        = list(string)
 }
+
+variable "repo_root" {
+  type        = string
+  description = "Path to the root of the repo for relative file access"
+}

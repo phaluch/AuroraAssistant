@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: Todoist Project Operations API
+  version: 3.0.0
+paths:
+  /projects:
+    post:
+      description: Create a new Todoist project
+      operationId: createProject
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: Project name (e.g., "Work", "Personal")
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 120
+        - name: description
+          in: query
+          required: false
+          description: Additional details about the project
+          schema:
+            type: string
+            maxLength: 16383
+        - name: parent_id
+          in: query
+          required: false
+          description: Parent project ID for creating nested projects
+          schema:
+            type: string
+      responses:
+        200:
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+  /projects/{project_id}:
+    get:
+      description: Retrieve a specific Todoist project
+      operationId: getProject
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          description: The unique identifier of the project
+          schema:
+            type: string
+      responses:
+        200:
+          description: Project retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+    put:
+      description: Update a Todoist project
+      operationId: updateProject
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          description: The unique identifier of the project
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          description: Project name
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 120
+        - name: description
+          in: query
+          required: false
+          description: Additional details about the project
+          schema:
+            type: string
+            maxLength: 16383
+      responses:
+        200:
+          description: Project updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+    delete:
+      description: Delete a Todoist project
+      operationId: deleteProject
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          description: The unique identifier of the project
+          schema:
+            type: string
+      responses:
+        200:
+          description: Project deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED

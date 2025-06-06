@@ -1,0 +1,120 @@
+openapi: 3.0.0
+info:
+  title: Todoist Label Operations API
+  version: 3.0.0
+paths:
+  /labels:
+    post:
+      description: Create a new Todoist label
+      operationId: createLabel
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: Label name (e.g., "urgent", "work")
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 60
+      responses:
+        200:
+          description: Label created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+  /labels/{label_id}:
+    get:
+      description: Retrieve a specific Todoist label
+      operationId: getLabel
+      parameters:
+        - name: label_id
+          in: path
+          required: true
+          description: The unique identifier of the label
+          schema:
+            type: string
+      responses:
+        200:
+          description: Label retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+    put:
+      description: Update a Todoist label
+      operationId: updateLabel
+      parameters:
+        - name: label_id
+          in: path
+          required: true
+          description: The unique identifier of the label
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          description: Label name
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 60
+      responses:
+        200:
+          description: Label updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED
+
+    delete:
+      description: Delete a Todoist label
+      operationId: deleteLabel
+      parameters:
+        - name: label_id
+          in: path
+          required: true
+          description: The unique identifier of the label
+          schema:
+            type: string
+      responses:
+        200:
+          description: Label deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+      x-requireConfirmation: DISABLED

@@ -23,3 +23,8 @@ variable "bedrock_agent_arn" {
   description = "ARN of the Bedrock agent (for Lambda permissions)"
   type        = string
 }
+
+variable "repo_root" {
+  type        = string
+  description = "Path to the root of the repository for file loading"
+}

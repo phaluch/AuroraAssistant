@@ -93,12 +93,13 @@ resource "aws_bedrockagent_agent" "todoist_assistant" {
 
 # Bedrock Agent Alias
 resource "aws_bedrockagent_agent_alias" "todoist_assistant" {
-  agent_alias_name = "${var.project_name}-${var.environment}-${var.domain}-agent-alias-todoist-assistant"
+  agent_alias_name = "${var.project_name}-${var.environment}-${var.domain}-agent-alias-todoist-assistant-v2"
   agent_id        = aws_bedrockagent_agent.todoist_assistant.agent_id
   description     = "Alias for Todoist Assistant Agent"
   
+
   tags = {
-    Name   = "${var.project_name}-${var.environment}-${var.domain}-agent-alias-todoist-assistant"
+    Name   = "${var.project_name}-${var.environment}-${var.domain}-agent-alias-todoist-assistant-v2"
     Domain = var.domain
   }
 }
@@ -106,8 +107,8 @@ resource "aws_bedrockagent_agent_alias" "todoist_assistant" {
 # Bedrock Agent Action Group
 resource "aws_bedrockagent_agent_action_group" "todoist_tool" {
   action_group_name = "todoist_tool"
-  agent_id         = aws_bedrockagent_agent.todoist_assistant.agent_id
-  agent_version    = "DRAFT"
+  agent_id      = aws_bedrockagent_agent.todoist_assistant.agent_id
+  agent_version = "DRAFT"
   description      = "Tools to interact with Todoist API"
 
   action_group_executor {
@@ -117,4 +118,5 @@ resource "aws_bedrockagent_agent_action_group" "todoist_tool" {
   api_schema {
     payload = var.todoist_api_schema
   }
+
 }
