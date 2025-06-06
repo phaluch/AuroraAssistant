@@ -1,7 +1,7 @@
 # Development Environment Variables
 # iac/environments/dev/variables.tf
 
-variable "app_name" {
+variable "project_name" {
   description = "Application name"
   type        = string
 }
@@ -18,16 +18,6 @@ variable "aws_region" {
 
 variable "aws_profile" {
   description = "AWS CLI profile"
-  type        = string
-}
-
-variable "bedrock_agent_id" {
-  description = "Bedrock Agent ID"
-  type        = string
-}
-
-variable "bedrock_agent_alias_id" {
-  description = "Bedrock Agent Alias ID"
   type        = string
 }
 

@@ -42,7 +42,7 @@ module "user_request_handler" {
 
 # API Gateway REST API
 resource "aws_api_gateway_rest_api" "main_public_api" {
-  name        = "${var.app_name}-${var.environment}-ui-agw-main-public-api"
+  name        = "${var.project_name}-${var.environment}-ui-agw-main-public-api"
   description = "Main public API for Aurora Assistant"
   
   endpoint_configuration {
@@ -50,7 +50,7 @@ resource "aws_api_gateway_rest_api" "main_public_api" {
   }
   
   tags = merge(local.common_tags, {
-    Name = "${var.app_name}-${var.environment}-ui-agw-main-public-api"
+    Name = "${var.project_name}-${var.environment}-ui-agw-main-public-api"
   })
 }
 

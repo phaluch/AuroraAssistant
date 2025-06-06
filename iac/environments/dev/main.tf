@@ -40,7 +40,8 @@ module "ai_tooling" {
 module "agent_orchestration" {
   source = "../../domains/agent_orchestration"
   
-  environment     = var.environment
+  project_name    = var.project_name
+  environment = var.environment
   aws_region      = var.aws_region
   aws_account_id  = var.aws_account_id
   
@@ -54,8 +55,8 @@ module "agent_orchestration" {
 module "user_interaction" {
   source = "../../domains/user_interaction"
   
-  app_name    = var.app_name
+  project_name    = var.project_name
   environment = var.environment
-  bedrock_agent_id       = var.bedrock_agent_id
-  bedrock_agent_alias_id = var.bedrock_agent_alias_id
+  bedrock_agent_id       = module.agent_orchestration.bedrock_agent_id
+  bedrock_agent_alias_id = module.agent_orchestration.bedrock_agent_alias_id
 }
